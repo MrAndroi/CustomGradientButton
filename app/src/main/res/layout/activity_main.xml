@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".MainActivity">
+
+    <com.maf.custom.views.customgradientbutton.views.CustomGradientButton
+        android:id="@+id/custom_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textTitle="Click Here !"
+        app:textColor="#000"
+        app:topBoarderColor="@color/black"
+        app:bottomBoarderColor="@color/teal_200"
+        app:innerVerticalPadding="15"
+        app:roundedBoarder="50"
+        app:buttonBorderWidth="2"
+        app:buttonBackground="#fff"
+        app:buttonTextSize="18"
+        app:isEnabled="true"
+        app:fontWidth="semiBold"
+        app:startIconRes="@drawable/baseline_check_24"
+        app:innerHorizontalPadding="20"
+        app:iconsArrangement="spaceBetween"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.maf.custom.views.customgradientbutton.views.CustomGradientButton
+        android:id="@+id/custom_button_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CustomButtonTheme"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</LinearLayout>
