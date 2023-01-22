@@ -1,4 +1,4 @@
-package com.maf.custom.views.customgradientbutton.views
+package com.maf.custom.views.gradient_button
 
 import android.content.Context
 import android.util.AttributeSet
@@ -33,7 +33,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.withStyledAttributes
-import com.maf.custom.views.customgradientbutton.R
 
 class CustomGradientButton @JvmOverloads constructor(
     context: Context,
@@ -297,7 +296,7 @@ fun PreviewGradientButton() {
                 buttonBackground = Color.White,
                 topBoarderColor = Color.Magenta,
                 bottomBoarderColor = Color.Red,
-                startIconRes = R.drawable.ic_launcher_background
+                startIconRes = R.drawable.baseline_check_24
 
             )
             Spacer(modifier = Modifier.height(20.dp))
@@ -308,8 +307,8 @@ fun PreviewGradientButton() {
                 fontWeight = 600,
                 buttonEnabled = true,
                 buttonTextColor = Color.White,
-                startIconRes = R.drawable.ic_launcher_background,
-                endIconRes = R.drawable.ic_launcher_background,
+                startIconRes = R.drawable.baseline_check_24,
+                endIconRes = R.drawable.baseline_check_24,
                 startIconSize = 50.dp,
                 iconsArrangement = 1
             )
@@ -334,7 +333,7 @@ fun PreviewGradientButton() {
                 buttonEnabled = true,
                 buttonBackground = Color.White,
                 buttonTextColor = Color.Red,
-                endIconRes = R.drawable.ic_launcher_background
+                endIconRes = R.drawable.baseline_check_24
             )
         }
 

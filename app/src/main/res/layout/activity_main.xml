@@ -19,7 +19,7 @@
         android:layout_marginTop="50dp"
         />
 
-    <com.maf.custom.views.customgradientbutton.views.CustomGradientButton
+    <com.maf.custom.views.gradient_button.CustomGradientButton
         android:id="@+id/custom_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.maf.custom.views.customgradientbutton.views.CustomGradientButton
+    <com.maf.custom.views.gradient_button.CustomGradientButton
         android:id="@+id/custom_button_disabled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
         android:layout_marginTop="50dp"
         />
 
-    <com.maf.custom.views.customgradientbutton.views.CustomGradientButton
+    <com.maf.custom.views.gradient_button.CustomGradientButton
         android:id="@+id/custom_button_hv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.maf.custom.views.customgradientbutton.views.CustomGradientButton
+    <com.maf.custom.views.gradient_button.CustomGradientButton
         android:id="@+id/custom_button_hv_disabled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
