@@ -69,5 +69,6 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
 
 
-    implementation project(':gradient-button')
+    //implementation project(':gradient-button')
+    implementation 'com.github.MrAndroi:CustomGradientButton:1.0'
 }
