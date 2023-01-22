@@ -6,6 +6,7 @@ native android button we will discuss all the availabile customization in detail
 ## Screenshot
 
 ![How it looks](screenshots/imageone.png)
+![Animated Boarder](screenshots/animated.gif)
 
 ## Setup Your Project
 
