@@ -51,7 +51,7 @@ Then copy all the files to your project
 2- Copy these attrs to your values/attrs.xml:
 
 ```
-<declare-styleable name="CustomButton">
+    <declare-styleable name="CustomButton">
         <attr name="textTitle" format="string" />
         <attr name="textColor" format="color" />
         <attr name="topBoarderColor" format="color" />
@@ -82,6 +82,8 @@ Then copy all the files to your project
         <attr name="endIconRes" format="reference"/>
         <attr name="endIconSize" format="integer"/>
         <attr name="endIconPadding" format="integer"/>
+        <attr name="animatedBoarder" format="boolean"/>
+        <attr name="animationSpeed" format="integer"/>
     </declare-styleable>
 
 ```
