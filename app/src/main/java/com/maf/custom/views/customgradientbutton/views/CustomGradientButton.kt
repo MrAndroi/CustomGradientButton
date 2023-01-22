@@ -72,7 +72,8 @@ class CustomGradientButton @JvmOverloads constructor(
             topBoarderColor = getColor(R.styleable.CustomButton_topBoarderColor, 0)
             bottomBoarderColor = getColor(R.styleable.CustomButton_bottomBoarderColor, 0)
             buttonBackground = getColor(R.styleable.CustomButton_buttonBackground, 0)
-            disabledButtonBackground = getColor(R.styleable.CustomButton_disabledButtonBackground, 0x6F6F6F)
+            disabledButtonBackground =
+                getColor(R.styleable.CustomButton_disabledButtonBackground, 0x6F6F6F)
             borderRound = getInt(R.styleable.CustomButton_roundedBoarder, 0).dp
             borderWidth = getInt(R.styleable.CustomButton_buttonBorderWidth, 0).dp
             innerVerticalPadding = getInt(R.styleable.CustomButton_innerVerticalPadding, 10).dp
@@ -203,10 +204,11 @@ fun GradientButton(
         )
         .border(
             borderWidth, Brush.verticalGradient(
-                colors = listOf(
-                    if (animatedBoarder) topColorAnimated else topBoarderColor,
-                    if (animatedBoarder) bottomColorAnimated else bottomBoarderColor
-                ),
+                colors = if (buttonEnabled)
+                    listOf(
+                        if (animatedBoarder) topColorAnimated else topBoarderColor,
+                        if (animatedBoarder) bottomColorAnimated else bottomBoarderColor
+                    ) else listOf(Color.Transparent, Color.Transparent)
             ), RoundedCornerShape(borderRound)
         )
         .clipToBounds()
@@ -237,7 +239,7 @@ fun GradientButton(
                     .padding(0.dp),
                 text = buttonText,
                 style = TextStyle(
-                    color = if (buttonEnabled) buttonTextColor else Color.Black,
+                    color = buttonTextColor,
                     fontSize = buttonTextSize,
                     fontWeight = FontWeight(fontWeight),
                     platformStyle = PlatformTextStyle(
