@@ -3,10 +3,9 @@ package com.maf.custom.views.customgradientbutton.views
 import android.content.Context
 import android.util.AttributeSet
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.*
+import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,7 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Brush
@@ -47,6 +46,7 @@ class CustomGradientButton @JvmOverloads constructor(
     var topBoarderColor by mutableStateOf(0xffffff)
     var bottomBoarderColor by mutableStateOf(0xffffff)
     var buttonBackground by mutableStateOf(0xfff)
+    var disabledButtonBackground by mutableStateOf(0x6F6F6F)
     var borderRound by mutableStateOf(0.dp)
     var borderWidth by mutableStateOf(0.dp)
     var innerVerticalPadding by mutableStateOf(0.dp)
@@ -61,6 +61,8 @@ class CustomGradientButton @JvmOverloads constructor(
     var endIconSize by mutableStateOf(25.dp)
     var endIconPadding by mutableStateOf(8.dp)
     var buttonEnabled by mutableStateOf(true)
+    var animatedBoarder by mutableStateOf(false)
+    var animationSpeed by mutableStateOf(2000)
     var onClick: (() -> Unit)? = null
 
     init {
@@ -70,12 +72,15 @@ class CustomGradientButton @JvmOverloads constructor(
             topBoarderColor = getColor(R.styleable.CustomButton_topBoarderColor, 0)
             bottomBoarderColor = getColor(R.styleable.CustomButton_bottomBoarderColor, 0)
             buttonBackground = getColor(R.styleable.CustomButton_buttonBackground, 0)
+            disabledButtonBackground = getColor(R.styleable.CustomButton_disabledButtonBackground, 0x6F6F6F)
             borderRound = getInt(R.styleable.CustomButton_roundedBoarder, 0).dp
             borderWidth = getInt(R.styleable.CustomButton_buttonBorderWidth, 0).dp
             innerVerticalPadding = getInt(R.styleable.CustomButton_innerVerticalPadding, 10).dp
             innerHorizontalPadding = getInt(R.styleable.CustomButton_innerHorizontalPadding, 20).dp
             buttonTextSize = getInt(R.styleable.CustomButton_buttonTextSize, 14).sp
             buttonEnabled = getBoolean(R.styleable.CustomButton_isEnabled, true)
+            animatedBoarder = getBoolean(R.styleable.CustomButton_animatedBoarder, false)
+            animationSpeed = getInteger(R.styleable.CustomButton_animationSpeed, 2000)
             fontWidth = getInteger(R.styleable.CustomButton_fontWidth, 400)
             iconsArrangement = getInteger(R.styleable.CustomButton_iconsArrangement, 0)
             startIconRes = getResourceId(R.styleable.CustomButton_startIconRes, 0)
@@ -101,12 +106,15 @@ class CustomGradientButton @JvmOverloads constructor(
             topBoarderColor = Color(topBoarderColor),
             bottomBoarderColor = Color(bottomBoarderColor),
             buttonBackground = Color(buttonBackground),
+            disabledButtonBackground = Color(disabledButtonBackground),
             borderRound = borderRound,
             borderWidth = borderWidth,
             innerVerticalPadding = innerVerticalPadding,
             innerHorizontalPadding = innerHorizontalPadding,
             buttonTextSize = buttonTextSize,
             buttonEnabled = buttonEnabled,
+            animatedBoarder = animatedBoarder,
+            animationSpeed = animationSpeed,
             fontWeight = fontWidth,
             iconsArrangement = iconsArrangement,
             startIconRes = if (startIconRes == 0) null else startIconRes,
@@ -124,7 +132,10 @@ class CustomGradientButton @JvmOverloads constructor(
 fun GradientButton(
     borderRound: Dp = 0.dp,
     buttonBackground: Color = Color.Red,
+    disabledButtonBackground: Color = Color.Gray,
     buttonEnabled: Boolean = true,
+    animatedBoarder: Boolean = false,
+    animationSpeed: Int = 2000,
     borderWidth: Dp = 1.dp,
     topBoarderColor: Color = Color.Black,
     bottomBoarderColor: Color = Color.Green,
@@ -153,13 +164,39 @@ fun GradientButton(
         arrangement = Arrangement.Center
     }
 
+    val transition = rememberInfiniteTransition()
+
+    val topColorAnimated by transition.animateColor(
+        initialValue = topBoarderColor,
+        targetValue = bottomBoarderColor,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = animationSpeed,
+                easing = FastOutLinearInEasing
+            ),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
+    val bottomColorAnimated by transition.animateColor(
+        initialValue = bottomBoarderColor,
+        targetValue = topBoarderColor,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = animationSpeed,
+                easing = FastOutLinearInEasing
+            ),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
     val enabledModifier = Modifier
         .fillMaxWidth()
         .wrapContentHeight()
         .clip(RoundedCornerShape(borderRound))
-        .background(buttonBackground)
-        .clickable(
-            enabled = buttonEnabled,
+        .background(if (buttonEnabled) buttonBackground else disabledButtonBackground)
+        .debounceClickable(
+            isEnabled = buttonEnabled,
             interactionSource = remember { MutableInteractionSource() },
             indication = rememberRipple(bounded = false, 400.dp),
             onClick = onClick
@@ -167,14 +204,13 @@ fun GradientButton(
         .border(
             borderWidth, Brush.verticalGradient(
                 colors = listOf(
-                    topBoarderColor,
-                    bottomBoarderColor
+                    if (animatedBoarder) topColorAnimated else topBoarderColor,
+                    if (animatedBoarder) bottomColorAnimated else bottomBoarderColor
                 ),
             ), RoundedCornerShape(borderRound)
         )
         .clipToBounds()
         .padding(bottom = innerVerticalPadding, top = innerVerticalPadding)
-        .alpha(if (buttonEnabled) 1f else 0.3f)
 
     Box(
         modifier = enabledModifier
@@ -220,6 +256,26 @@ fun GradientButton(
             }
         }
 
+    }
+}
+
+inline fun Modifier.debounceClickable(
+    debounceInterval: Long = 300,
+    isEnabled: Boolean,
+    interactionSource: MutableInteractionSource,
+    indication: Indication?,
+    crossinline onClick: () -> Unit,
+): Modifier = composed {
+    var lastClickTime by remember { mutableStateOf(0L) }
+    clickable(
+        enabled = isEnabled,
+        indication = indication,
+        interactionSource = interactionSource
+    ) {
+        val currentTime = System.currentTimeMillis()
+        if ((currentTime - lastClickTime) < debounceInterval) return@clickable
+        lastClickTime = currentTime
+        onClick()
     }
 }
 

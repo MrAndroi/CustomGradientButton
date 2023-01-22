@@ -22,5 +22,7 @@
         <item name="roundedBoarder">20</item>
         <item name="innerVerticalPadding">40</item>
         <item name="buttonBorderWidth">5</item>
+        <item name="animatedBoarder">true</item>
+        <item name="animationSpeed">500</item>
     </style>
 </resources>
