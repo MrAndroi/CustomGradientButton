@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -73,7 +74,7 @@ afterEvaluate {
 
                 groupId = 'com.maf.custom.views'
                 artifactId = 'gradient-button'
-                version = '1.0'
+                version = '1.2'
             }
         }
     }

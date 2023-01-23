@@ -1,18 +1,23 @@
 package com.maf.custom.views.customgradientbutton
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import com.maf.custom.views.gradient_button.CustomGradientButton
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import com.maf.custom.views.customgradientbutton.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+    private val mainViewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val button = findViewById<CustomGradientButton>(R.id.custom_button)
-        button.onClick = {
-            Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
-        }
+        binding.main = mainViewModel
+        binding.lifecycleOwner = this
     }
 }

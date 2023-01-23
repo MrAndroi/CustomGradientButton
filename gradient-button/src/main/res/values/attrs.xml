@@ -7,6 +7,7 @@
         <attr name="bottomBoarderColor" format="color" />
         <attr name="buttonBackground" format="color" />
         <attr name="disabledButtonBackground" format="color" />
+        <attr name="disabledTextAlpha" format="float" />
         <attr name="roundedBoarder" format="integer" />
         <attr name="buttonBorderWidth" format="integer" />
         <attr name="innerVerticalPadding" format="integer" />
@@ -33,5 +34,6 @@
         <attr name="endIconPadding" format="integer"/>
         <attr name="animatedBoarder" format="boolean"/>
         <attr name="animationSpeed" format="integer"/>
+        <attr name="rippleColor" format="color"/>
     </declare-styleable>
 </resources>
