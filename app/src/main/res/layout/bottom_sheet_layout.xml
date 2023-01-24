@@ -5,15 +5,12 @@
 
     <data>
 
-        <variable
-            name="main"
-            type="com.maf.custom.views.customgradientbutton.MainViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
+        android:background="@color/white"
         android:orientation="vertical"
         tools:context=".MainActivity">
 
@@ -31,13 +28,11 @@
             android:id="@+id/custom_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:onDebounceClick="@{() -> main.onButtonOneClick()}"
             android:layout_marginTop="20dp"
             app:buttonBackground="#B5064D"
             app:rippleColor="#2196F3"
             app:buttonBorderWidth="2"
             app:buttonTextSize="18"
-            android:layout_marginHorizontal="10dp"
             app:disabledButtonBackground="#26B5064D"
             app:fontWidth="semiBold"
             app:iconsArrangement="spaceBetween"
@@ -77,66 +72,6 @@
             app:roundedBoarder="50"
             app:textColor="#fff"
             app:textTitle="Disabled" />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:text="HV"
-            android:textColor="#fff"
-            android:textSize="25sp" />
-
-        <com.maf.custom.views.gradient_button.CustomGradientButton
-            android:id="@+id/custom_button_hv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="20dp"
-            app:bottomBoarderColor="#2dF39325"
-            app:buttonBackground="#1AFFFFFF"
-            app:buttonBorderWidth="1"
-            app:buttonTextSize="18"
-            app:disabledButtonBackground="#26B5064D"
-            app:fontWidth="semiBold"
-            app:iconsArrangement="spaceBetween"
-            app:innerHorizontalPadding="20"
-            app:innerVerticalPadding="15"
-            app:isEnabled="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:roundedBoarder="50"
-            app:textColor="#fff"
-            app:textTitle="Enabled"
-            app:topBoarderColor="#B4965A" />
-
-        <com.maf.custom.views.gradient_button.CustomGradientButton
-            android:id="@+id/custom_button_hv_disabled"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="20dp"
-            app:bottomBoarderColor="#2dF39325"
-            app:buttonBackground="#1AFFFFFF"
-            app:buttonBorderWidth="1"
-            app:buttonTextSize="18"
-            app:disabledButtonBackground="#1AFFFFFF"
-            app:fontWidth="semiBold"
-            app:iconsArrangement="spaceBetween"
-            app:innerHorizontalPadding="20"
-            app:innerVerticalPadding="15"
-            app:isEnabled="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:roundedBoarder="50"
-            app:textColor="#fff"
-            app:textTitle="Disabled"
-            app:topBoarderColor="#B4965A" />
 
     </LinearLayout>
 </layout>

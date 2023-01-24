@@ -37,6 +37,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.withStyledAttributes
+import androidx.lifecycle.ViewTreeLifecycleOwner
+import androidx.lifecycle.ViewTreeViewModelStoreOwner
+import androidx.savedstate.findViewTreeSavedStateRegistryOwner
+import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 
 class CustomGradientButton @JvmOverloads constructor(
     context: Context,
@@ -106,7 +110,9 @@ class CustomGradientButton @JvmOverloads constructor(
     }
 
     override fun onAttachedToWindow() {
-        setParentCompositionContext(null)
+        if (isInEditMode) {
+            setupEditMode()
+        }
         super.onAttachedToWindow()
     }
 
