@@ -1,7 +1,7 @@
 # Gradient Boarder Button For Android
 
-This button will allow you to make the boarder (strock) gradient and it has more customization that
-native android button we will discuss all the availabile customization in details below, Thank you.
+This button will allow you to make the boarder (stroke) gradient and it has more customization that
+native android button we will discuss all the available customization in details below, Thank you.
 
 ## Screenshot
 
@@ -22,19 +22,19 @@ native android button we will discuss all the availabile customization in detail
 	
 	//Then add these lines to your dependencies
 	dependencies {
-	        implementation 'com.github.MrAndroi:CustomGradientButton:1.2'
+	     implementation 'com.github.MrAndroi:CustomGradientButton:1.3'
 	        
-	        //Compose Dependencies
-            def composeBom = platform('androidx.compose:compose-bom:2022.12.00')
-            implementation composeBom
-            implementation 'androidx.compose.material:material'
+	     //Compose Dependencies
+         def composeBom = platform('androidx.compose:compose-bom:2022.12.00')
+         implementation composeBom
+         implementation 'androidx.compose.material:material'
 	}
 
 ```
 
 ## Approach 2- copy CustomGradientButton files to your project
 
-first start by addin this configration to your build.gradle(app) level
+first start by adding this configuration to your build.gradle(app) level
 
 ```
   //In android {} block add this lines
@@ -55,7 +55,7 @@ first start by addin this configration to your build.gradle(app) level
 
 ```
 
-Then in depedanices block add this lines
+Then in dependencies block add this lines
 
 ```
     //Compose Dependencies
@@ -149,34 +149,36 @@ Now you are ready to use it inside your layout files like this:
 
 Now lets walk through the available customizations:
 
-| Attribute                | Type              | Description                                                             | Values                                                                                               |
-|--------------------------|-------------------|-------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| textTitle                | String            | The text displayed in the button                                        | Any String value or resource -> default: null                                                        |
-| textColor                | Color             | Color for the text displayes in the button                              | Any Color value or resource -> default: Black                                                        |
-| topBoarderColor          | Color             | Color for the start of gradient                                         | Any Color value or resource -> default: White                                                        |
-| bottomBoarderColor       | Color             | Color for the end of gradient                                           | Any Color value or resource -> default: White                                                        |
-| buttonBackground         | Color             | Button Background Color                                                 | Any Color value or resource -> default: White                                                        |
-| disabledButtonBackground | Color             | Button Background Color when disabled                                   | Any Color value or resource -> default: Gray                                                         |
-| disabledTextAlpha        | Float             | Apply alpha effect on text button when disabled                         | Float value (0.0f to 1.0f) -> default: 0.5f                                                          |
-| roundedBoarder           | Int               | Make the button with rounded corners                                    | Values between 0-100 -> default: 0                                                                   |
-| buttonBorderWidth        | Int               | The width of button boarder                                             | Any Int value -> default: 0                                                                          |
-| innerVerticalPadding     | Int               | Top and Bottom inner padding for the button                             | Any Int value -> default: 10                                                                         |
-| innerHorizontalPadding   | Int               | Right and Left inner padding for the button                             | Any Int value -> default: 20                                                                         |
-| buttonTextSize           | Int               | Button text size                                                        | Any Int value -> default: 14                                                                         |
-| isEnabled                | Boolean           | Make the button disabled if false will make the button alpha value 0.3f | true/false -> default: true                                                                          |
-| startIconRes             | Drawable Resource | Add icon on the left of the text                                        | Any drawable resource -> default: null                                                               |
-| startIconSize            | Int               | Left icon size if there is one                                          | Any Int value -> default: 25                                                                         |
-| startIconPadding         | Int               | Padding between the left icon and the text                              | Any Int value -> default: 8                                                                          |
-| endIconRes               | Drawable Resource | Add icon on the right of the text                                       | Any drawable resource -> default: null                                                               |
-| endIconSize              | Int               | Right icon size if there is one                                         | Any Int value -> default: 25                                                                         |
-| endIconPadding           | Int               | Padding between the left icon and the text                              | Any Int value -> default: 8                                                                          |
-| iconsArrangement         | Enum              | How to arrange icons with the text in the button                        | Choose between two values (center, spaceBetween) -> default: center                                  |
-| fontWidth                | Enum              | The weight of the font                                                  | Choose between these values  (veryLight, light, normal, semiBold, bold, veryBold) -> default: normal |
-| animatedBoarder          | Boolean           | Make the boarder animate                                                | true/false -> default: true                                                                          |        
-| animationSpeed           | Int               | Speed of animation                                                      | Any Int value -> default: 2000 (2 seconds)                                                           |        
-| rippleColor              | Color             | Change ripple effect color                                              | ny Color value or resource -> default: White                                                         |        
+| Attribute                     | Type              | Description                                                             | Values                                                                                               |
+|-------------------------------|-------------------|-------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| textTitle                     | String            | The text displayed in the button                                        | Any String value or resource -> default: null                                                        |
+| textColor                     | Color             | Color for the text displayes in the button                              | Any Color value or resource -> default: Black                                                        |
+| topBoarderColor               | Color             | Color for the start of gradient                                         | Any Color value or resource -> default: White                                                        |
+| bottomBoarderColor            | Color             | Color for the end of gradient                                           | Any Color value or resource -> default: White                                                        |
+| buttonBackground              | Color             | Button Background Color                                                 | Any Color value or resource -> default: White                                                        |
+| disabledButtonBackground      | Color             | Button Background Color when disabled                                   | Any Color value or resource -> default: Gray                                                         |
+| disabledButtonBackgroundAlpha | Float             | Apply alpha effect on button background when disabled                   | Any Color value or resource -> default: 1.0                                                          |
+| disabledTextAlpha             | Float             | Apply alpha effect on text button when disabled                         | Float value (0.0f to 1.0f) -> default: 1.0                                                           |
+| roundedBoarder                | Int               | Make the button with rounded corners                                    | Values between 0-100 -> default: 0                                                                   |
+| buttonBorderWidth             | Int               | The width of button boarder                                             | Any Int value -> default: 0                                                                          |
+| innerVerticalPadding          | Int               | Top and Bottom inner padding for the button                             | Any Int value -> default: 10                                                                         |
+| innerHorizontalPadding        | Int               | Right and Left inner padding for the button                             | Any Int value -> default: 20                                                                         |
+| buttonTextSize                | Int               | Button text size                                                        | Any Int value -> default: 14                                                                         |
+| isEnabled                     | Boolean           | Make the button disabled if false will make the button alpha value 0.3f | true/false -> default: true                                                                          |
+| startIconRes                  | Drawable Resource | Add icon on the left of the text                                        | Any drawable resource -> default: null                                                               |
+| startIconSize                 | Int               | Left icon size if there is one                                          | Any Int value -> default: 25                                                                         |
+| startIconPadding              | Int               | Padding between the left icon and the text                              | Any Int value -> default: 8                                                                          |
+| endIconRes                    | Drawable Resource | Add icon on the right of the text                                       | Any drawable resource -> default: null                                                               |
+| endIconSize                   | Int               | Right icon size if there is one                                         | Any Int value -> default: 25                                                                         |
+| endIconPadding                | Int               | Padding between the left icon and the text                              | Any Int value -> default: 8                                                                          |
+| iconsArrangement              | Enum              | How to arrange icons with the text in the button                        | Choose between two values (center, spaceBetween) -> default: center                                  |
+| fontWidth                     | Enum              | The weight of the font                                                  | Choose between these values  (veryLight, light, normal, semiBold, bold, veryBold) -> default: normal |
+| animatedBoarder               | Boolean           | Make the boarder animate                                                | true/false -> default: true                                                                          |        
+| animationSpeed                | Int               | Speed of animation                                                      | Any Int value -> default: 2000 (2 seconds)                                                           |        
+| rippleColor                   | Color             | Change ripple effect color                                              | Any Color value or resource -> default: White                                                        |        
+| font                          | Font Resource     | Change font type                                                        | Any font resource -> default: Android default font                                                   |        
 
-Also all these values are changable from the code like this:
+Also all these values are changeable from the code like this:
 
 ```
     binding.customButton.borderRound = 0.dp
@@ -199,5 +201,5 @@ Finally to make a click listener do this:
 
 ### That's it :).
 
-## Sorry for any bad practices in the code, I will be happy for any suggetion to improve the code, Thank you.
+## Sorry for any bad practices in the code, I will be happy for any suggestion to improve the code, Thank you.
 

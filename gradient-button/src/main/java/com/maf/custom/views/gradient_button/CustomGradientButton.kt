@@ -1,6 +1,7 @@
 package com.maf.custom.views.gradient_button
 
 import android.content.Context
+import android.graphics.ColorSpace
 import android.util.AttributeSet
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateColor
@@ -27,6 +28,8 @@ import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -47,7 +50,8 @@ class CustomGradientButton @JvmOverloads constructor(
     var bottomBoarderColor by mutableStateOf(0xffffff)
     var buttonBackground by mutableStateOf(0xfff)
     var disabledButtonBackground by mutableStateOf(0x6F6F6F)
-    var disabledTextAlpha by mutableStateOf(0.5f)
+    var disabledButtonBackgroundAlpha by mutableStateOf(1f)
+    var disabledTextAlpha by mutableStateOf(1f)
     var borderRound by mutableStateOf(0.dp)
     var borderWidth by mutableStateOf(0.dp)
     var innerVerticalPadding by mutableStateOf(0.dp)
@@ -65,6 +69,7 @@ class CustomGradientButton @JvmOverloads constructor(
     var animatedBoarder by mutableStateOf(false)
     var animationSpeed by mutableStateOf(2000)
     var rippleColor by mutableStateOf(0xffffff)
+    var fontFamily by mutableStateOf(0)
     private var onClick: (() -> Unit)? = null
 
     init {
@@ -76,7 +81,9 @@ class CustomGradientButton @JvmOverloads constructor(
             buttonBackground = getColor(R.styleable.CustomButton_buttonBackground, 0)
             disabledButtonBackground =
                 getColor(R.styleable.CustomButton_disabledButtonBackground, 0x6F6F6F)
-            disabledTextAlpha = getFloat(R.styleable.CustomButton_disabledTextAlpha, 0.5f)
+            disabledButtonBackgroundAlpha =
+                getFloat(R.styleable.CustomButton_disabledButtonBackgroundAlpha, 1f)
+            disabledTextAlpha = getFloat(R.styleable.CustomButton_disabledTextAlpha, 1f)
             borderRound = getInt(R.styleable.CustomButton_roundedBoarder, 0).dp
             borderWidth = getInt(R.styleable.CustomButton_buttonBorderWidth, 0).dp
             innerVerticalPadding = getInt(R.styleable.CustomButton_innerVerticalPadding, 10).dp
@@ -94,6 +101,7 @@ class CustomGradientButton @JvmOverloads constructor(
             endIconSize = getInt(R.styleable.CustomButton_endIconSize, 25).dp
             endIconPadding = getInt(R.styleable.CustomButton_endIconPadding, 8).dp
             rippleColor = getColor(R.styleable.CustomButton_rippleColor, 0xffffff)
+            fontFamily = getResourceId(R.styleable.CustomButton_font, 0)
         }
     }
 
@@ -112,6 +120,7 @@ class CustomGradientButton @JvmOverloads constructor(
             bottomBoarderColor = Color(bottomBoarderColor),
             buttonBackground = Color(buttonBackground),
             disabledButtonBackground = Color(disabledButtonBackground),
+            disabledButtonBackgroundAlpha = disabledButtonBackgroundAlpha,
             disabledTextAlpha = disabledTextAlpha,
             borderRound = borderRound,
             borderWidth = borderWidth,
@@ -130,6 +139,7 @@ class CustomGradientButton @JvmOverloads constructor(
             startIconPadding = startIconPadding,
             endIconPadding = endIconPadding,
             rippleColor = Color(rippleColor),
+            fontFamily = if (fontFamily == 0) FontFamily.Default else FontFamily(Font(fontFamily)),
             listener = onClick
         )
     }
@@ -144,7 +154,8 @@ fun GradientButton(
     borderRound: Dp = 0.dp,
     buttonBackground: Color = Color.Red,
     disabledButtonBackground: Color = Color.Gray,
-    disabledTextAlpha: Float = 0.5f,
+    disabledButtonBackgroundAlpha: Float = 1f,
+    disabledTextAlpha: Float = 1f,
     buttonEnabled: Boolean = true,
     animatedBoarder: Boolean = false,
     animationSpeed: Int = 2000,
@@ -165,6 +176,7 @@ fun GradientButton(
     endIconSize: Dp = 25.dp,
     endIconPadding: Dp = 8.dp,
     rippleColor: Color = Color.White,
+    fontFamily: FontFamily = FontFamily.Default,
     listener: (() -> Unit)? = null,
 ) {
     var arrangement = when (iconsArrangement) {
@@ -199,11 +211,21 @@ fun GradientButton(
         )
     )
 
+    val background = if (buttonEnabled) {
+        buttonBackground
+    } else {
+        if (disabledButtonBackgroundAlpha == 1f) {
+            disabledButtonBackground
+        } else {
+            disabledButtonBackground.copy(alpha = disabledButtonBackgroundAlpha)
+        }
+    }
+
     val enabledModifier = Modifier
         .fillMaxWidth()
         .wrapContentHeight()
         .clip(RoundedCornerShape(borderRound))
-        .background(if (buttonEnabled) buttonBackground else disabledButtonBackground)
+        .background(background)
         .debounceClickable(
             isEnabled = buttonEnabled,
             interactionSource = remember { MutableInteractionSource() },
@@ -256,7 +278,8 @@ fun GradientButton(
                     fontWeight = FontWeight(fontWeight),
                     platformStyle = PlatformTextStyle(
                         includeFontPadding = false,
-                    )
+                    ),
+                    fontFamily = fontFamily
                 )
             )
             endIconRes?.let {
