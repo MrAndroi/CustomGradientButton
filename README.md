@@ -22,7 +22,7 @@ native android button we will discuss all the available customization in details
 	
 	//Then add these lines to your dependencies
 	dependencies {
-	     implementation 'com.github.MrAndroi:CustomGradientButton:1.3'
+	     implementation 'com.github.MrAndroi:CustomGradientButton:1.4'
 	        
 	     //Compose Dependencies
          def composeBom = platform('androidx.compose:compose-bom:2022.12.00')
