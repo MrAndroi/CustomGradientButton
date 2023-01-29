@@ -74,7 +74,7 @@ afterEvaluate {
 
                 groupId = 'com.maf.custom.views'
                 artifactId = 'gradient-button'
-                version = '1.4'
+                version = '1.6'
             }
         }
     }

@@ -13,6 +13,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -51,19 +52,19 @@ class CustomGradientButton @JvmOverloads constructor(
     var disabledButtonBackground by mutableStateOf(0x6F6F6F)
     var disabledButtonBackgroundAlpha by mutableStateOf(1f)
     var disabledTextAlpha by mutableStateOf(1f)
-    var borderRound by mutableStateOf(0.dp)
-    var borderWidth by mutableStateOf(0.dp)
-    var innerVerticalPadding by mutableStateOf(0.dp)
-    var innerHorizontalPadding by mutableStateOf(0.dp)
-    var buttonTextSize by mutableStateOf(14.sp)
+    var borderRound by mutableStateOf(0)
+    var borderWidth by mutableStateOf(0)
+    var innerVerticalPadding by mutableStateOf(0)
+    var innerHorizontalPadding by mutableStateOf(0)
+    var buttonTextSize by mutableStateOf(14)
     var fontWidth by mutableStateOf(400)
     var iconsArrangement by mutableStateOf(0)
     var startIconRes: Int? by mutableStateOf(null)
-    var startIconSize by mutableStateOf(25.dp)
-    var startIconPadding by mutableStateOf(8.dp)
+    var startIconSize by mutableStateOf(25)
+    var startIconPadding by mutableStateOf(8)
     var endIconRes: Int? by mutableStateOf(null)
-    var endIconSize by mutableStateOf(25.dp)
-    var endIconPadding by mutableStateOf(8.dp)
+    var endIconSize by mutableStateOf(25)
+    var endIconPadding by mutableStateOf(8)
     var buttonEnabled by mutableStateOf(true)
     var animatedBoarder by mutableStateOf(false)
     var animationSpeed by mutableStateOf(2000)
@@ -83,22 +84,22 @@ class CustomGradientButton @JvmOverloads constructor(
             disabledButtonBackgroundAlpha =
                 getFloat(R.styleable.CustomButton_disabledButtonBackgroundAlpha, 1f)
             disabledTextAlpha = getFloat(R.styleable.CustomButton_disabledTextAlpha, 1f)
-            borderRound = getInt(R.styleable.CustomButton_roundedBoarder, 0).dp
-            borderWidth = getInt(R.styleable.CustomButton_buttonBorderWidth, 0).dp
-            innerVerticalPadding = getInt(R.styleable.CustomButton_innerVerticalPadding, 10).dp
-            innerHorizontalPadding = getInt(R.styleable.CustomButton_innerHorizontalPadding, 20).dp
-            buttonTextSize = getInt(R.styleable.CustomButton_buttonTextSize, 14).sp
+            borderRound = getInt(R.styleable.CustomButton_roundedBoarder, 0)
+            borderWidth = getInt(R.styleable.CustomButton_buttonBorderWidth, 0)
+            innerVerticalPadding = getInt(R.styleable.CustomButton_innerVerticalPadding, 10)
+            innerHorizontalPadding = getInt(R.styleable.CustomButton_innerHorizontalPadding, 20)
+            buttonTextSize = getInt(R.styleable.CustomButton_buttonTextSize, 14)
             buttonEnabled = getBoolean(R.styleable.CustomButton_isEnabled, true)
             animatedBoarder = getBoolean(R.styleable.CustomButton_animatedBoarder, false)
             animationSpeed = getInteger(R.styleable.CustomButton_animationSpeed, 2000)
             fontWidth = getInteger(R.styleable.CustomButton_fontWidth, 400)
             iconsArrangement = getInteger(R.styleable.CustomButton_iconsArrangement, 0)
             startIconRes = getResourceId(R.styleable.CustomButton_startIconRes, 0)
-            startIconSize = getInt(R.styleable.CustomButton_startIconSize, 25).dp
-            startIconPadding = getInt(R.styleable.CustomButton_startIconPadding, 8).dp
+            startIconSize = getInt(R.styleable.CustomButton_startIconSize, 25)
+            startIconPadding = getInt(R.styleable.CustomButton_startIconPadding, 8)
             endIconRes = getResourceId(R.styleable.CustomButton_endIconRes, 0)
-            endIconSize = getInt(R.styleable.CustomButton_endIconSize, 25).dp
-            endIconPadding = getInt(R.styleable.CustomButton_endIconPadding, 8).dp
+            endIconSize = getInt(R.styleable.CustomButton_endIconSize, 25)
+            endIconPadding = getInt(R.styleable.CustomButton_endIconPadding, 8)
             clickEffectColor = getColor(R.styleable.CustomButton_clickEffectColor, 0xffffff)
             fontFamily = getResourceId(R.styleable.CustomButton_font, 0)
         }
@@ -114,33 +115,89 @@ class CustomGradientButton @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
+
+        val buttonText = rememberSaveable(this.buttonText) { mutableStateOf(this.buttonText) }
+        val textColor = rememberSaveable(this.textColor) { mutableStateOf(this.textColor) }
+        val topBoarderColor =
+            rememberSaveable(this.topBoarderColor) { mutableStateOf(this.topBoarderColor) }
+        val bottomBoarderColor =
+            rememberSaveable(this.bottomBoarderColor) { mutableStateOf(this.bottomBoarderColor) }
+        val buttonBackground =
+            rememberSaveable(this.buttonBackground) { mutableStateOf(this.buttonBackground) }
+        val disabledButtonBackground =
+            rememberSaveable(this.disabledButtonBackground) { mutableStateOf(this.disabledButtonBackground) }
+        val disabledButtonBackgroundAlpha =
+            rememberSaveable(this.disabledButtonBackgroundAlpha) { mutableStateOf(this.disabledButtonBackgroundAlpha) }
+        val disabledTextAlpha =
+            rememberSaveable(this.disabledTextAlpha) { mutableStateOf(this.disabledTextAlpha) }
+        val borderRound =
+            rememberSaveable(this.borderRound) { mutableStateOf(this.borderRound) }
+        val borderWidth =
+            rememberSaveable(this.borderWidth) { mutableStateOf(this.borderWidth) }
+        val innerVerticalPadding =
+            rememberSaveable(this.innerVerticalPadding) { mutableStateOf(this.innerVerticalPadding) }
+        val innerHorizontalPadding =
+            rememberSaveable(this.innerHorizontalPadding) { mutableStateOf(this.innerHorizontalPadding) }
+        val buttonTextSize =
+            rememberSaveable(this.buttonTextSize) { mutableStateOf(this.buttonTextSize) }
+        val fontWidth =
+            rememberSaveable(this.fontWidth) { mutableStateOf(this.fontWidth) }
+        val iconsArrangement =
+            rememberSaveable(this.iconsArrangement) { mutableStateOf(this.iconsArrangement) }
+        val startIconRes =
+            rememberSaveable(this.startIconRes) { mutableStateOf(this.startIconRes) }
+        val startIconPadding =
+            rememberSaveable(this.startIconPadding) { mutableStateOf(this.startIconPadding) }
+        val startIconSize =
+            rememberSaveable(this.startIconSize) { mutableStateOf(this.startIconSize) }
+        val endIconRes =
+            rememberSaveable(this.endIconRes) { mutableStateOf(this.endIconRes) }
+        val endIconPadding =
+            rememberSaveable(this.endIconPadding) { mutableStateOf(this.endIconPadding) }
+        val endIconSize =
+            rememberSaveable(this.endIconSize) { mutableStateOf(this.endIconSize) }
+        val buttonEnabled =
+            rememberSaveable(this.buttonEnabled) { mutableStateOf(this.buttonEnabled) }
+        val animatedBoarder =
+            rememberSaveable(this.animatedBoarder) { mutableStateOf(this.animatedBoarder) }
+        val animationSpeed =
+            rememberSaveable(this.animationSpeed) { mutableStateOf(this.animationSpeed) }
+        val clickEffectColor =
+            rememberSaveable(this.clickEffectColor) { mutableStateOf(this.clickEffectColor) }
+        val fontFamily =
+            rememberSaveable(this.fontFamily) { mutableStateOf(this.fontFamily) }
+
         GradientButton(
-            buttonText = buttonText,
-            buttonTextColor = Color(textColor),
-            topBoarderColor = Color(topBoarderColor),
-            bottomBoarderColor = Color(bottomBoarderColor),
-            buttonBackground = Color(buttonBackground),
-            disabledButtonBackground = Color(disabledButtonBackground),
-            disabledButtonBackgroundAlpha = disabledButtonBackgroundAlpha,
-            disabledTextAlpha = disabledTextAlpha,
-            borderRound = borderRound,
-            borderWidth = borderWidth,
-            innerVerticalPadding = innerVerticalPadding,
-            innerHorizontalPadding = innerHorizontalPadding,
-            buttonTextSize = buttonTextSize,
-            buttonEnabled = buttonEnabled,
-            animatedBoarder = animatedBoarder,
-            animationSpeed = animationSpeed,
-            fontWeight = fontWidth,
-            iconsArrangement = iconsArrangement,
-            startIconRes = if (startIconRes == 0) null else startIconRes,
-            endIconRes = if (endIconRes == 0) null else endIconRes,
-            startIconSize = startIconSize,
-            endIconSize = endIconSize,
-            startIconPadding = startIconPadding,
-            endIconPadding = endIconPadding,
-            clickEffectColor = Color(clickEffectColor),
-            fontFamily = if (fontFamily == 0) FontFamily.Default else FontFamily(Font(fontFamily)),
+            buttonText = buttonText.value,
+            buttonTextColor = Color(textColor.value),
+            topBoarderColor = Color(topBoarderColor.value),
+            bottomBoarderColor = Color(bottomBoarderColor.value),
+            buttonBackground = Color(buttonBackground.value),
+            disabledButtonBackground = Color(disabledButtonBackground.value),
+            disabledButtonBackgroundAlpha = disabledButtonBackgroundAlpha.value,
+            disabledTextAlpha = disabledTextAlpha.value,
+            borderRound = borderRound.value.dp,
+            borderWidth = borderWidth.value.dp,
+            innerVerticalPadding = innerVerticalPadding.value.dp,
+            innerHorizontalPadding = innerHorizontalPadding.value.dp,
+            buttonTextSize = buttonTextSize.value.sp,
+            buttonEnabled = buttonEnabled.value,
+            animatedBoarder = animatedBoarder.value,
+            animationSpeed = animationSpeed.value,
+            fontWeight = fontWidth.value,
+            iconsArrangement = iconsArrangement.value,
+            startIconRes = if (startIconRes.value == 0) null else startIconRes.value,
+            endIconRes = if (endIconRes.value == 0) null else endIconRes.value,
+            startIconSize = startIconSize.value.dp,
+            endIconSize = endIconSize.value.dp,
+            startIconPadding = startIconPadding.value.dp,
+            endIconPadding = endIconPadding.value.dp,
+            clickEffectColor = Color(clickEffectColor.value),
+            fontFamily = if (fontFamily.value == 0) FontFamily.Default else FontFamily(
+                Font(
+                    fontFamily.value
+                )
+            ),
             listener = onClick
         )
     }

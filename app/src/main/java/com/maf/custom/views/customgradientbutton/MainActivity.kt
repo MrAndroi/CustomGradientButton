@@ -3,6 +3,7 @@ package com.maf.custom.views.customgradientbutton
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.ViewTreeViewModelStoreOwner
@@ -29,19 +30,11 @@ class MainActivity : FragmentActivity() {
         binding.lifecycleOwner = this
 
         binding.customButtonHv.setOnDebounceClickListener {
-            val dialog = BottomSheetDialog(
-                this@MainActivity,
-                com.google.android.material.R.style.Theme_Design_BottomSheetDialog
-            )
-            val layout = BottomSheetLayoutBinding.inflate(layoutInflater)
-            dialog.setContentView(layout.root)
-            val decorView: View = dialog.window?.decorView ?: throw IllegalStateException("Failed to get decorview")
 
-            ViewTreeLifecycleOwner.set(decorView, this)
-            ViewTreeViewModelStoreOwner.set(decorView, this)
-            layout.root.setViewTreeSavedStateRegistryOwner(decorView.findViewTreeSavedStateRegistryOwner())
+        }
 
-            dialog.show()
+        binding.customButtonDisabled.setOnDebounceClickListener {
+            binding.customButton.buttonBackground = getColor(R.color.purple_200)
         }
 
 
