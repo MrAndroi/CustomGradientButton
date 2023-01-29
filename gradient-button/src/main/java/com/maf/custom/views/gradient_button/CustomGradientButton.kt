@@ -1,7 +1,6 @@
 package com.maf.custom.views.gradient_button
 
 import android.content.Context
-import android.graphics.ColorSpace
 import android.util.AttributeSet
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateColor
@@ -37,10 +36,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.withStyledAttributes
-import androidx.lifecycle.ViewTreeLifecycleOwner
-import androidx.lifecycle.ViewTreeViewModelStoreOwner
-import androidx.savedstate.findViewTreeSavedStateRegistryOwner
-import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 
 class CustomGradientButton @JvmOverloads constructor(
     context: Context,
@@ -72,7 +67,7 @@ class CustomGradientButton @JvmOverloads constructor(
     var buttonEnabled by mutableStateOf(true)
     var animatedBoarder by mutableStateOf(false)
     var animationSpeed by mutableStateOf(2000)
-    var rippleColor by mutableStateOf(0xffffff)
+    var clickEffectColor by mutableStateOf(0xffffff)
     var fontFamily by mutableStateOf(0)
     private var onClick: (() -> Unit)? = null
 
@@ -104,7 +99,7 @@ class CustomGradientButton @JvmOverloads constructor(
             endIconRes = getResourceId(R.styleable.CustomButton_endIconRes, 0)
             endIconSize = getInt(R.styleable.CustomButton_endIconSize, 25).dp
             endIconPadding = getInt(R.styleable.CustomButton_endIconPadding, 8).dp
-            rippleColor = getColor(R.styleable.CustomButton_rippleColor, 0xffffff)
+            clickEffectColor = getColor(R.styleable.CustomButton_clickEffectColor, 0xffffff)
             fontFamily = getResourceId(R.styleable.CustomButton_font, 0)
         }
     }
@@ -144,7 +139,7 @@ class CustomGradientButton @JvmOverloads constructor(
             endIconSize = endIconSize,
             startIconPadding = startIconPadding,
             endIconPadding = endIconPadding,
-            rippleColor = Color(rippleColor),
+            clickEffectColor = Color(clickEffectColor),
             fontFamily = if (fontFamily == 0) FontFamily.Default else FontFamily(Font(fontFamily)),
             listener = onClick
         )
@@ -181,7 +176,7 @@ fun GradientButton(
     startIconPadding: Dp = 8.dp,
     endIconSize: Dp = 25.dp,
     endIconPadding: Dp = 8.dp,
-    rippleColor: Color = Color.White,
+    clickEffectColor: Color = Color.White,
     fontFamily: FontFamily = FontFamily.Default,
     listener: (() -> Unit)? = null,
 ) {
@@ -236,7 +231,7 @@ fun GradientButton(
             isEnabled = buttonEnabled,
             interactionSource = remember { MutableInteractionSource() },
             indication = rememberRipple(
-                color = rippleColor,
+                color = clickEffectColor,
                 bounded = false,
                 radius = 400.dp
             ),
@@ -373,7 +368,8 @@ fun PreviewGradientButton() {
                 buttonEnabled = true,
                 buttonBackground = Color.White,
                 buttonTextColor = Color.Red,
-                endIconRes = R.drawable.baseline_check_24
+                endIconRes = R.drawable.baseline_check_24,
+                clickEffectColor = Color.Yellow
             )
         }
 

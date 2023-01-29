@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             app:onDebounceClick="@{() -> main.onButtonOneClick()}"
             android:layout_marginTop="20dp"
-            app:buttonBackground="#B5064D"
+            app:buttonBackground="#B14C75"
             app:rippleColor="#2196F3"
             app:buttonBorderWidth="2"
             app:buttonTextSize="18"

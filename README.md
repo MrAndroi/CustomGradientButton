@@ -22,7 +22,7 @@ native android button we will discuss all the available customization in details
 	
 	//Then add these lines to your dependencies
 	dependencies {
-	     implementation 'com.github.MrAndroi:CustomGradientButton:1.4'
+	     implementation 'com.github.MrAndroi:CustomGradientButton:1.5'
 	        
 	     //Compose Dependencies
          def composeBom = platform('androidx.compose:compose-bom:2022.12.00')
@@ -109,7 +109,7 @@ Then copy all the files to your project
         <attr name="endIconPadding" format="integer"/>
         <attr name="animatedBoarder" format="boolean"/>
         <attr name="animationSpeed" format="integer"/>
-        <attr name="rippleColor" format="color"/>
+        <attr name="clickEffectColor" format="color"/>
     </declare-styleable>
 
 ```
@@ -175,7 +175,7 @@ Now lets walk through the available customizations:
 | fontWidth                     | Enum              | The weight of the font                                                  | Choose between these values  (veryLight, light, normal, semiBold, bold, veryBold) -> default: normal |
 | animatedBoarder               | Boolean           | Make the boarder animate                                                | true/false -> default: true                                                                          |        
 | animationSpeed                | Int               | Speed of animation                                                      | Any Int value -> default: 2000 (2 seconds)                                                           |        
-| rippleColor                   | Color             | Change ripple effect color                                              | Any Color value or resource -> default: White                                                        |        
+| clickEffectColor              | Color             | Change ripple effect color                                              | Any Color value or resource -> default: White                                                        |        
 | font                          | Font Resource     | Change font type                                                        | Any font resource -> default: Android default font                                                   |        
 
 Also all these values are changeable from the code like this:
