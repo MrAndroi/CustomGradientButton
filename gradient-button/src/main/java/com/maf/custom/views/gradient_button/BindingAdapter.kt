@@ -7,3 +7,10 @@ import androidx.databinding.BindingAdapter
 fun CustomGradientButton.setCustomClick(listener: (() -> Unit)) {
     this.setOnDebounceClickListener(listener)
 }
+
+// function to support textTitle in data binding
+@BindingAdapter("textTitle")
+fun CustomGradientButton.setTextTitle(text: String) {
+    this.buttonText = text
+}
+

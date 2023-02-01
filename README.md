@@ -22,7 +22,7 @@ native android button we will discuss all the available customization in details
 	
 	//Then add these lines to your dependencies
 	dependencies {
-	     implementation 'com.github.MrAndroi:CustomGradientButton:1.6'
+	     implementation 'com.github.MrAndroi:CustomGradientButton:1.7'
 	        
 	     //Compose Dependencies
          def composeBom = platform('androidx.compose:compose-bom:2022.12.00')
@@ -196,6 +196,9 @@ Finally to make a click listener do this:
     
     //Starting from v1.2 you can use click listener with data binding like this:
     app:onDebounceClick="@{() -> main.onButtonOneClick()}"
+    
+    //Starting from v1.7 you can use textTitle with data binding like this:
+    app:textTitle="@{`Any String`}"
 
 ```
 
