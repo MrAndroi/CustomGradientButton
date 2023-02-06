@@ -22,7 +22,7 @@ native android button we will discuss all the available customization in details
 	
 	//Then add these lines to your dependencies
 	dependencies {
-	     implementation 'com.github.MrAndroi:CustomGradientButton:1.7'
+	     implementation 'com.github.MrAndroi:CustomGradientButton:1.8'
 	        
 	     //Compose Dependencies
          def composeBom = platform('androidx.compose:compose-bom:2022.12.00')
@@ -102,14 +102,17 @@ Then copy all the files to your project
             <flag name="veryBold" value="800"/>
         </attr>
         <attr name="startIconRes" format="reference"/>
+        <attr name="startIconLink" format="string"/>
         <attr name="startIconSize" format="integer"/>
         <attr name="startIconPadding" format="integer"/>
         <attr name="endIconRes" format="reference"/>
+        <attr name="endIconLink" format="string"/>
         <attr name="endIconSize" format="integer"/>
         <attr name="endIconPadding" format="integer"/>
         <attr name="animatedBoarder" format="boolean"/>
         <attr name="animationSpeed" format="integer"/>
         <attr name="clickEffectColor" format="color"/>
+        <attr name="font" format="reference"/>
     </declare-styleable>
 
 ```
@@ -166,9 +169,11 @@ Now lets walk through the available customizations:
 | buttonTextSize                | Int               | Button text size                                                        | Any Int value -> default: 14                                                                         |
 | isEnabled                     | Boolean           | Make the button disabled if false will make the button alpha value 0.3f | true/false -> default: true                                                                          |
 | startIconRes                  | Drawable Resource | Add icon on the left of the text                                        | Any drawable resource -> default: null                                                               |
+| startIconLink                 | String url        | Add icon on the left of the text using url                              | Any image link -> default: null                                                                      |
 | startIconSize                 | Int               | Left icon size if there is one                                          | Any Int value -> default: 25                                                                         |
 | startIconPadding              | Int               | Padding between the left icon and the text                              | Any Int value -> default: 8                                                                          |
 | endIconRes                    | Drawable Resource | Add icon on the right of the text                                       | Any drawable resource -> default: null                                                               |
+| endIconLink                   | String url        | Add icon on the left of the text using url                              | Any image link -> default: null                                                                      |
 | endIconSize                   | Int               | Right icon size if there is one                                         | Any Int value -> default: 25                                                                         |
 | endIconPadding                | Int               | Padding between the left icon and the text                              | Any Int value -> default: 8                                                                          |
 | iconsArrangement              | Enum              | How to arrange icons with the text in the button                        | Choose between two values (center, spaceBetween) -> default: center                                  |
@@ -199,6 +204,9 @@ Finally to make a click listener do this:
     
     //Starting from v1.7 you can use textTitle with data binding like this:
     app:textTitle="@{`Any String`}"
+    
+    Starting from v1.8 you can set start and end icons using url with data binding like this:
+    app:startIconLink="@{`image.png`}"
 
 ```
 

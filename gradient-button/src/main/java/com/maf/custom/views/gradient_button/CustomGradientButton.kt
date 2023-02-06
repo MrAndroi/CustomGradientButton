@@ -2,7 +2,6 @@ package com.maf.custom.views.gradient_button
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
@@ -37,6 +36,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.withStyledAttributes
+import coil.compose.AsyncImage
 
 class CustomGradientButton @JvmOverloads constructor(
     context: Context,
@@ -60,9 +60,11 @@ class CustomGradientButton @JvmOverloads constructor(
     var fontWidth by mutableStateOf(400)
     var iconsArrangement by mutableStateOf(0)
     var startIconRes: Int? by mutableStateOf(null)
+    var startIconLink: String? by mutableStateOf(null)
     var startIconSize by mutableStateOf(25)
     var startIconPadding by mutableStateOf(8)
     var endIconRes: Int? by mutableStateOf(null)
+    var endIconLink: String? by mutableStateOf(null)
     var endIconSize by mutableStateOf(25)
     var endIconPadding by mutableStateOf(8)
     var buttonEnabled by mutableStateOf(true)
@@ -94,12 +96,17 @@ class CustomGradientButton @JvmOverloads constructor(
             animationSpeed = getInteger(R.styleable.CustomButton_animationSpeed, 2000)
             fontWidth = getInteger(R.styleable.CustomButton_fontWidth, 400)
             iconsArrangement = getInteger(R.styleable.CustomButton_iconsArrangement, 0)
+
             startIconRes = getResourceId(R.styleable.CustomButton_startIconRes, 0)
+            startIconLink = getString(R.styleable.CustomButton_startIconLink)
             startIconSize = getInt(R.styleable.CustomButton_startIconSize, 25)
             startIconPadding = getInt(R.styleable.CustomButton_startIconPadding, 8)
+
             endIconRes = getResourceId(R.styleable.CustomButton_endIconRes, 0)
+            endIconLink = getString(R.styleable.CustomButton_endIconLink)
             endIconSize = getInt(R.styleable.CustomButton_endIconSize, 25)
             endIconPadding = getInt(R.styleable.CustomButton_endIconPadding, 8)
+
             clickEffectColor = getColor(R.styleable.CustomButton_clickEffectColor, 0xffffff)
             fontFamily = getResourceId(R.styleable.CustomButton_font, 0)
         }
@@ -146,12 +153,16 @@ class CustomGradientButton @JvmOverloads constructor(
             rememberSaveable(this.iconsArrangement) { mutableStateOf(this.iconsArrangement) }
         val startIconRes =
             rememberSaveable(this.startIconRes) { mutableStateOf(this.startIconRes) }
+        val startIconLink =
+            rememberSaveable(this.startIconLink) { mutableStateOf(this.startIconLink) }
         val startIconPadding =
             rememberSaveable(this.startIconPadding) { mutableStateOf(this.startIconPadding) }
         val startIconSize =
             rememberSaveable(this.startIconSize) { mutableStateOf(this.startIconSize) }
         val endIconRes =
             rememberSaveable(this.endIconRes) { mutableStateOf(this.endIconRes) }
+        val endIconLink =
+            rememberSaveable(this.endIconLink) { mutableStateOf(this.endIconLink) }
         val endIconPadding =
             rememberSaveable(this.endIconPadding) { mutableStateOf(this.endIconPadding) }
         val endIconSize =
@@ -187,7 +198,9 @@ class CustomGradientButton @JvmOverloads constructor(
             fontWeight = fontWidth.value,
             iconsArrangement = iconsArrangement.value,
             startIconRes = if (startIconRes.value == 0) null else startIconRes.value,
+            startIconLink = startIconLink.value,
             endIconRes = if (endIconRes.value == 0) null else endIconRes.value,
+            endIconLink = endIconLink.value,
             startIconSize = startIconSize.value.dp,
             endIconSize = endIconSize.value.dp,
             startIconPadding = startIconPadding.value.dp,
@@ -226,8 +239,10 @@ fun GradientButton(
     buttonTextColor: Color = Color.Black,
     buttonTextSize: TextUnit = 20.sp,
     fontWeight: Int = 400,
-    @DrawableRes startIconRes: Int? = null,
-    @DrawableRes endIconRes: Int? = null,
+    startIconRes: Int? = null,
+    startIconLink: String? = null,
+    endIconRes: Int? = null,
+    endIconLink: String? = null,
     iconsArrangement: Int = 0,
     startIconSize: Dp = 25.dp,
     startIconPadding: Dp = 8.dp,
@@ -325,6 +340,15 @@ fun GradientButton(
                 )
                 Spacer(modifier = Modifier.width(startIconPadding))
             }
+            startIconLink?.let {
+                AsyncImage(
+                    model = startIconLink,
+                    modifier = Modifier.size(startIconSize),
+                    colorFilter = ColorFilter.tint(buttonTextColor),
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.width(startIconPadding))
+            }
             Text(
                 modifier = Modifier
                     .padding(0.dp)
@@ -347,6 +371,15 @@ fun GradientButton(
                     contentDescription = null,
                     modifier = Modifier.size(endIconSize),
                     colorFilter = ColorFilter.tint(buttonTextColor)
+                )
+            }
+            endIconLink?.let {
+                Spacer(modifier = Modifier.width(endIconPadding))
+                AsyncImage(
+                    model = endIconLink,
+                    modifier = Modifier.size(endIconSize),
+                    colorFilter = ColorFilter.tint(buttonTextColor),
+                    contentDescription = null
                 )
             }
         }

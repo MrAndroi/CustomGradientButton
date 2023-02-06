@@ -28,9 +28,11 @@
             <flag name="veryBold" value="800"/>
         </attr>
         <attr name="startIconRes" format="reference"/>
+        <attr name="startIconLink" format="string"/>
         <attr name="startIconSize" format="integer"/>
         <attr name="startIconPadding" format="integer"/>
         <attr name="endIconRes" format="reference"/>
+        <attr name="endIconLink" format="string"/>
         <attr name="endIconSize" format="integer"/>
         <attr name="endIconPadding" format="integer"/>
         <attr name="animatedBoarder" format="boolean"/>

@@ -14,3 +14,13 @@ fun CustomGradientButton.setTextTitle(text: String) {
     this.buttonText = text
 }
 
+@BindingAdapter("startIconLink")
+fun CustomGradientButton.setStartIconLink(url: String) {
+    this.startIconLink = url
+}
+
+@BindingAdapter("endIconLink")
+fun CustomGradientButton.setEndIconLink(url: String) {
+    this.endIconLink = url
+}
+

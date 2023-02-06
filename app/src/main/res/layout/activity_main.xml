@@ -62,6 +62,7 @@
             app:buttonBackground="#B5064D"
             app:buttonBorderWidth="2"
             app:buttonTextSize="18"
+            app:startIconLink="@{`https://s3.gifyu.com/images/icons8-map-30.png`}"
             app:disabledButtonBackground="#80B5064D"
             app:disabledButtonBackgroundAlpha="0.5"
             app:disabledTextAlpha="0.9"
