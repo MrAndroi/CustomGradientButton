@@ -2,6 +2,9 @@ package com.maf.custom.views.gradient_button
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
@@ -72,6 +75,7 @@ class CustomGradientButton @JvmOverloads constructor(
     var animationSpeed by mutableStateOf(2000)
     var clickEffectColor by mutableStateOf(0xffffff)
     var fontFamily by mutableStateOf(0)
+    var layoutWidth: String? by mutableStateOf(null)
     private var onClick: (() -> Unit)? = null
 
     init {
@@ -109,6 +113,11 @@ class CustomGradientButton @JvmOverloads constructor(
 
             clickEffectColor = getColor(R.styleable.CustomButton_clickEffectColor, 0xffffff)
             fontFamily = getResourceId(R.styleable.CustomButton_font, 0)
+
+            layoutWidth = attrs?.getAttributeValue(
+                "http://schemas.android.com/apk/res/android",
+                "layout_width"
+            )
         }
     }
 
@@ -211,6 +220,7 @@ class CustomGradientButton @JvmOverloads constructor(
                     fontFamily.value
                 )
             ),
+            layoutWidth = layoutWidth,
             listener = onClick
         )
     }
@@ -250,6 +260,7 @@ fun GradientButton(
     endIconPadding: Dp = 8.dp,
     clickEffectColor: Color = Color.White,
     fontFamily: FontFamily = FontFamily.Default,
+    layoutWidth: String? = null,
     listener: (() -> Unit)? = null,
 ) {
     var arrangement = when (iconsArrangement) {
@@ -295,7 +306,6 @@ fun GradientButton(
     }
 
     val enabledModifier = Modifier
-        .fillMaxWidth()
         .wrapContentHeight()
         .clip(RoundedCornerShape(borderRound))
         .background(background)
@@ -320,15 +330,31 @@ fun GradientButton(
         .clipToBounds()
         .padding(bottom = innerVerticalPadding, top = innerVerticalPadding)
 
+    when {
+        layoutWidth.equals(MATCH_PARENT.toString()) ->
+            enabledModifier.fillMaxWidth()
+        layoutWidth.equals(WRAP_CONTENT.toString()) ->
+            enabledModifier.wrapContentWidth()
+    }
+
     Box(
         modifier = enabledModifier
     ) {
+
+        val rowModifier = Modifier
+            .wrapContentWidth()
+            .align(Center)
+            .padding(start = innerHorizontalPadding, end = innerHorizontalPadding)
+
+        when {
+            layoutWidth.equals(MATCH_PARENT.toString()) ->
+                rowModifier.fillMaxWidth()
+            layoutWidth.equals(WRAP_CONTENT.toString()) ->
+                rowModifier.wrapContentWidth()
+        }
         Row(
             verticalAlignment = CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Center)
-                .padding(start = innerHorizontalPadding, end = innerHorizontalPadding),
+            modifier = rowModifier,
             horizontalArrangement = arrangement
         ) {
             startIconRes?.let {
