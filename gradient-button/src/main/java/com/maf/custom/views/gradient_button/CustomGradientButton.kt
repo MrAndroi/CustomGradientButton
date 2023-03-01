@@ -369,7 +369,6 @@ fun GradientButton(
                     painter = painterResource(id = startIconRes),
                     contentDescription = null,
                     modifier = Modifier.wrapContentSize(),
-                    colorFilter = ColorFilter.tint(buttonTextColor)
                 )
                 Spacer(modifier = Modifier.width(startIconPadding))
             }
@@ -403,7 +402,6 @@ fun GradientButton(
                     painter = painterResource(id = endIconRes),
                     contentDescription = null,
                     modifier = Modifier.wrapContentSize(),
-                    colorFilter = ColorFilter.tint(buttonTextColor)
                 )
             }
             endIconLink?.let {
