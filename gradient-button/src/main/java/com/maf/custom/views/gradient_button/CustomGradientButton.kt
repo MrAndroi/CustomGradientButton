@@ -75,6 +75,7 @@ class CustomGradientButton @JvmOverloads constructor(
     var animationSpeed by mutableStateOf(2000)
     var clickEffectColor by mutableStateOf(0xffffff)
     var fontFamily by mutableStateOf(0)
+    var allCaps by mutableStateOf(false)
     var layoutWidth: String? by mutableStateOf(null)
     private var onClick: (() -> Unit)? = null
 
@@ -113,6 +114,8 @@ class CustomGradientButton @JvmOverloads constructor(
 
             clickEffectColor = getColor(R.styleable.CustomButton_clickEffectColor, 0xffffff)
             fontFamily = getResourceId(R.styleable.CustomButton_font, 0)
+
+            allCaps = getBoolean(R.styleable.CustomButton_buttonTextAllCaps, false)
 
             layoutWidth = attrs?.getAttributeValue(
                 "http://schemas.android.com/apk/res/android",
@@ -186,6 +189,8 @@ class CustomGradientButton @JvmOverloads constructor(
             rememberSaveable(this.clickEffectColor) { mutableStateOf(this.clickEffectColor) }
         val fontFamily =
             rememberSaveable(this.fontFamily) { mutableStateOf(this.fontFamily) }
+        val allCaps =
+            rememberSaveable(this.allCaps) { mutableStateOf(this.allCaps) }
 
         GradientButton(
             buttonText = buttonText.value,
@@ -220,6 +225,7 @@ class CustomGradientButton @JvmOverloads constructor(
                     fontFamily.value
                 )
             ),
+            allCaps = allCaps.value,
             layoutWidth = layoutWidth,
             listener = onClick
         )
@@ -260,6 +266,7 @@ fun GradientButton(
     endIconPadding: Dp = 8.dp,
     clickEffectColor: Color = Color.White,
     fontFamily: FontFamily = FontFamily.Default,
+    allCaps: Boolean = false,
     layoutWidth: String? = null,
     listener: (() -> Unit)? = null,
 ) {
@@ -361,7 +368,7 @@ fun GradientButton(
                 Image(
                     painter = painterResource(id = startIconRes),
                     contentDescription = null,
-                    modifier = Modifier.size(startIconSize),
+                    modifier = Modifier.wrapContentSize(),
                     colorFilter = ColorFilter.tint(buttonTextColor)
                 )
                 Spacer(modifier = Modifier.width(startIconPadding))
@@ -379,7 +386,7 @@ fun GradientButton(
                 modifier = Modifier
                     .padding(0.dp)
                     .alpha(if (buttonEnabled) 1.0f else disabledTextAlpha),
-                text = buttonText,
+                text = if(allCaps) buttonText.uppercase() else buttonText,
                 style = TextStyle(
                     color = buttonTextColor,
                     fontSize = buttonTextSize,
@@ -387,7 +394,7 @@ fun GradientButton(
                     platformStyle = PlatformTextStyle(
                         includeFontPadding = false,
                     ),
-                    fontFamily = fontFamily
+                    fontFamily = fontFamily,
                 )
             )
             endIconRes?.let {
@@ -395,7 +402,7 @@ fun GradientButton(
                 Image(
                     painter = painterResource(id = endIconRes),
                     contentDescription = null,
-                    modifier = Modifier.size(endIconSize),
+                    modifier = Modifier.wrapContentSize(),
                     colorFilter = ColorFilter.tint(buttonTextColor)
                 )
             }

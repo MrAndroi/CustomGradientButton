@@ -39,5 +39,6 @@
         <attr name="animationSpeed" format="integer"/>
         <attr name="clickEffectColor" format="color"/>
         <attr name="font" format="reference"/>
+        <attr name="buttonTextAllCaps" format="boolean"/>
     </declare-styleable>
 </resources>

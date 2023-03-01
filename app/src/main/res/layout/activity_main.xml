@@ -37,6 +37,8 @@
             app:rippleColor="#2196F3"
             app:buttonBorderWidth="2"
             app:buttonTextSize="20"
+            app:buttonTextAllCaps="true"
+            app:startIconRes="@drawable/ic_share_id_hv"
             android:layout_marginHorizontal="10dp"
             app:disabledButtonBackground="#26B5064D"
             app:fontWidth="semiBold"
