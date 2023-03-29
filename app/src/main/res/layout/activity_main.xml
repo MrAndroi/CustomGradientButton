@@ -6,6 +6,9 @@
     <data>
 
         <variable
+            name="test"
+            type="Boolean" />
+        <variable
             name="main"
             type="com.maf.custom.views.customgradientbutton.MainViewModel" />
     </data>
@@ -100,7 +103,7 @@
             android:layout_marginTop="20dp"
             app:bottomBoarderColor="#2dF39325"
             app:buttonBackground="#1AFFFFFF"
-            app:buttonBorderWidth="1"
+            app:buttonBorderWidth="@{test ? 5 : 10}"
             app:buttonTextSize="18"
             app:disabledButtonBackground="#26B5064D"
             app:fontWidth="semiBold"

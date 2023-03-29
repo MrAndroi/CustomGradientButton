@@ -24,3 +24,8 @@ fun CustomGradientButton.setEndIconLink(url: String) {
     this.endIconLink = url
 }
 
+@BindingAdapter("buttonBorderWidth")
+fun CustomGradientButton.setButtonBorderWidth(width: Int) {
+    this.borderWidth = width
+}
+
