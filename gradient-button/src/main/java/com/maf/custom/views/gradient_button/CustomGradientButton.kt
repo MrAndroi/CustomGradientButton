@@ -66,10 +66,12 @@ class CustomGradientButton @JvmOverloads constructor(
     var startIconLink: String? by mutableStateOf(null)
     var startIconSize by mutableStateOf(25)
     var startIconPadding by mutableStateOf(8)
+    var startIconTint by mutableStateOf(-1)
     var endIconRes: Int? by mutableStateOf(null)
     var endIconLink: String? by mutableStateOf(null)
     var endIconSize by mutableStateOf(25)
     var endIconPadding by mutableStateOf(8)
+    var endIconTint by mutableStateOf(-1)
     var buttonEnabled by mutableStateOf(true)
     var animatedBoarder by mutableStateOf(false)
     var animationSpeed by mutableStateOf(2000)
@@ -106,11 +108,13 @@ class CustomGradientButton @JvmOverloads constructor(
             startIconLink = getString(R.styleable.CustomButton_startIconLink)
             startIconSize = getInt(R.styleable.CustomButton_startIconSize, 25)
             startIconPadding = getInt(R.styleable.CustomButton_startIconPadding, 8)
+            startIconTint = getColor(R.styleable.CustomButton_startIconTint, -1)
 
             endIconRes = getResourceId(R.styleable.CustomButton_endIconRes, 0)
             endIconLink = getString(R.styleable.CustomButton_endIconLink)
             endIconSize = getInt(R.styleable.CustomButton_endIconSize, 25)
             endIconPadding = getInt(R.styleable.CustomButton_endIconPadding, 8)
+            endIconTint = getColor(R.styleable.CustomButton_endIconTint, -1)
 
             clickEffectColor = getColor(R.styleable.CustomButton_clickEffectColor, 0xffffff)
             fontFamily = getResourceId(R.styleable.CustomButton_font, 0)
@@ -179,6 +183,12 @@ class CustomGradientButton @JvmOverloads constructor(
             rememberSaveable(this.endIconPadding) { mutableStateOf(this.endIconPadding) }
         val endIconSize =
             rememberSaveable(this.endIconSize) { mutableStateOf(this.endIconSize) }
+
+        val endIconTint =
+            rememberSaveable(this.endIconTint) { mutableStateOf(this.endIconTint) }
+        val startIconTint =
+            rememberSaveable(this.startIconTint) { mutableStateOf(this.startIconTint) }
+
         val buttonEnabled =
             rememberSaveable(this.buttonEnabled) { mutableStateOf(this.buttonEnabled) }
         val animatedBoarder =
@@ -215,6 +225,8 @@ class CustomGradientButton @JvmOverloads constructor(
             startIconLink = startIconLink.value,
             endIconRes = if (endIconRes.value == 0) null else endIconRes.value,
             endIconLink = endIconLink.value,
+            endIconTint = endIconTint.value,
+            startIconTint = startIconTint.value,
             startIconSize = startIconSize.value.dp,
             endIconSize = endIconSize.value.dp,
             startIconPadding = startIconPadding.value.dp,
@@ -264,6 +276,8 @@ fun GradientButton(
     startIconPadding: Dp = 8.dp,
     endIconSize: Dp = 25.dp,
     endIconPadding: Dp = 8.dp,
+    startIconTint: Int = -1,
+    endIconTint: Int = -1,
     clickEffectColor: Color = Color.White,
     fontFamily: FontFamily = FontFamily.Default,
     allCaps: Boolean = false,
@@ -364,10 +378,17 @@ fun GradientButton(
             modifier = rowModifier,
             horizontalArrangement = arrangement
         ) {
+            val colorFilterStart = if(startIconTint != -1)
+                ColorFilter.tint(Color(startIconTint)) else null
+
+            val colorFilterEnd = if(endIconTint != -1)
+                ColorFilter.tint(Color(endIconTint)) else null
+
             startIconRes?.let {
                 Image(
                     painter = painterResource(id = startIconRes),
                     contentDescription = null,
+                    colorFilter = colorFilterStart,
                     modifier = Modifier.wrapContentSize(),
                 )
                 Spacer(modifier = Modifier.width(startIconPadding))
@@ -376,7 +397,7 @@ fun GradientButton(
                 AsyncImage(
                     model = startIconLink,
                     modifier = Modifier.size(startIconSize),
-                    colorFilter = ColorFilter.tint(buttonTextColor),
+                    colorFilter = colorFilterStart,
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(startIconPadding))
@@ -401,6 +422,7 @@ fun GradientButton(
                 Image(
                     painter = painterResource(id = endIconRes),
                     contentDescription = null,
+                    colorFilter = colorFilterEnd,
                     modifier = Modifier.wrapContentSize(),
                 )
             }
@@ -409,7 +431,7 @@ fun GradientButton(
                 AsyncImage(
                     model = endIconLink,
                     modifier = Modifier.size(endIconSize),
-                    colorFilter = ColorFilter.tint(buttonTextColor),
+                    colorFilter = colorFilterEnd,
                     contentDescription = null
                 )
             }

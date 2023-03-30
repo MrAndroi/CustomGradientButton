@@ -40,5 +40,7 @@
         <attr name="clickEffectColor" format="color"/>
         <attr name="font" format="reference"/>
         <attr name="buttonTextAllCaps" format="boolean"/>
+        <attr name="startIconTint" format="color"/>
+        <attr name="endIconTint" format="color"/>
     </declare-styleable>
 </resources>
